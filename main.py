@@ -28,12 +28,19 @@ if __name__ == "__main__":
     print(original_text)
 
     encoded = rs.encode(message)
+    message_symbols, safe_parity = rs.encode_with_ocr_safe_parity(message)
 
     print("\nEncoded codeword:")
     print(encoded)
 
+    print("\nOCR-safe parity:")
+    print(safe_parity)
+
     print("\nIs encoded codeword valid?")
     print(rs.check(encoded))
+
+    print("\nDoes OCR-safe parity rebuild the codeword?")
+    print(rs.codeword_from_ocr_safe_parity(message_symbols, safe_parity) == encoded)
 
     corrupted = encoded[:]
     corrupted[0] ^= 0x55
